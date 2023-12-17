@@ -15,30 +15,30 @@ let intervaloId = null
 musica.loop = true
 
 musicaFocoInput.addEventListener('change', () => {
-    if(musica.paused) {
+    if (musica.paused) {
         musica.play()
     } else {
         musica.pause()
     }
 })
 
-focoBt.addEventListener('click', () => {   
+focoBt.addEventListener('click', () => {
     alterarContexto('foco')
     focoBt.classList.add('active')
 })
 
-curtoBt.addEventListener('click', () => {   
+curtoBt.addEventListener('click', () => {
     alterarContexto('descanso-curto')
     curtoBt.classList.add('active')
 })
 
-longoBt.addEventListener('click', () => {   
+longoBt.addEventListener('click', () => {
     alterarContexto('descanso-longo')
     longoBt.classList.add('active')
 })
 
-function alterarContexto(contexto) {    
-    botoes.forEach( function (contexto) {
+function alterarContexto(contexto) {
+    botoes.forEach(function (contexto) {
         contexto.classList.remove('active')
     })
     html.setAttribute('data-contexto', contexto)
@@ -61,20 +61,33 @@ function alterarContexto(contexto) {
             Hora de voltar à superfície.<br>
                 <strong class="app__title-strong">Faça uma pausa longa!</strong>
             `
-            break;      
+            break;
         default:
             break;
     }
 }
 
-const contagemRegressiva = () => {    
-    //iniciar()
+const contagemRegressiva = () => {
+    if (tempoDecorridoEmSegundos <= 0) {
+        zerar()
+        alert('Tempo finalizado!')
+        return
+    }
     tempoDecorridoEmSegundos -= 1
     console.log('temporizador: ' + tempoDecorridoEmSegundos)
 }
 
-startPauseBt.addEventListener('click', contagemRegressiva)
+startPauseBt.addEventListener('click', iniciarOuPausar)
 
-function iniciar() {    
+function iniciarOuPausar() {
+    if (intervaloId) {
+        zerar()
+        return
+    }
     intervaloId = setInterval(contagemRegressiva, 1000)
+}
+
+function zerar() {
+    clearInterval(intervaloId)
+    intervaloId = null
 }
