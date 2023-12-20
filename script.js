@@ -7,7 +7,17 @@ const titulo = document.querySelector('.app__title')
 const botoes = document.querySelectorAll('.app__card-button')
 const startPauseBt = document.querySelector('#start-pause')
 const musicaFocoInput = document.querySelector('#alternar-musica')
+const iniciarOuSalvarBt = document.querySelector('#start-pause span')
+
 const musica = new Audio('/sons/luna-rise-part-one.mp3')
+const somPlay = new Audio('/sons/play.wav')
+const somPause = new Audio('/sons/pause.mp3')
+const somTempoAcabado = new Audio('/sons/beep.mp3')
+
+const startPauseImg = document.querySelector("#start-pause img")
+const imagemPlay = '/imagens/play_arrow.png'
+const imagemPause = '/imagens/pause.png'
+
 
 let tempoDecorridoEmSegundos = 5
 let intervaloId = null
@@ -69,8 +79,9 @@ function alterarContexto(contexto) {
 
 const contagemRegressiva = () => {
     if (tempoDecorridoEmSegundos <= 0) {
-        zerar()
+        //somTempoAcabado.play()        
         alert('Tempo finalizado!')
+        zerar()
         return
     }
     tempoDecorridoEmSegundos -= 1
@@ -81,13 +92,19 @@ startPauseBt.addEventListener('click', iniciarOuPausar)
 
 function iniciarOuPausar() {
     if (intervaloId) {
+        somPause.play()
         zerar()
         return
     }
+    somPlay.play()
     intervaloId = setInterval(contagemRegressiva, 1000)
+    iniciarOuSalvarBt.textContent = "Pausar"
+    startPauseImg.setAttribute('src', imagemPause)
 }
 
 function zerar() {
     clearInterval(intervaloId)
+    iniciarOuSalvarBt.textContent = "Começar"
+    startPauseImg.setAttribute('src', imagemPlay)
     intervaloId = null
 }
