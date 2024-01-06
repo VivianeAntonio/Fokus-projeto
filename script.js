@@ -10,14 +10,14 @@ const musicaFocoInput = document.querySelector('#alternar-musica')
 const iniciarOuSalvarBt = document.querySelector('#start-pause span')
 const tempoNaTela = document.querySelector('#timer')
 
-const musica = new Audio('/sons/luna-rise-part-one.mp3')
-const somPlay = new Audio('/sons/play.wav')
-const somPause = new Audio('/sons/pause.mp3')
-const somTempoAcabado = new Audio('/sons/beep.mp3')
+const musica = new Audio('sons/luna-rise-part-one.mp3')
+const somPlay = new Audio('sons/play.wav')
+const somPause = new Audio('sons/pause.mp3')
+const somTempoAcabado = new Audio('sons/beep.mp3')
 
 const startPauseImg = document.querySelector("#start-pause img")
-const imagemPlay = '/imagens/play_arrow.png'
-const imagemPause = '/imagens/pause.png'
+const imagemPlay = 'imagens/play_arrow.png'
+const imagemPause = 'imagens/pause.png'
 
 
 let tempoDecorridoEmSegundos = 1500
@@ -57,7 +57,7 @@ function alterarContexto(contexto) {
         contexto.classList.remove('active')
     })
     html.setAttribute('data-contexto', contexto)
-    banner.setAttribute('src', `/imagens/${contexto}.png`)
+    banner.setAttribute('src', `imagens/${contexto}.png`)
     switch (contexto) {
         case 'foco':
             titulo.innerHTML = `
